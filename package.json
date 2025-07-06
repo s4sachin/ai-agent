@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "gemini-ai": "^2.2.1",
     "got": "^14.4.4",
     "lowdb": "^7.0.1",
     "openai": "^4.70.3",
