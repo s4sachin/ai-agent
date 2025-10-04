@@ -1,23 +1,15 @@
 import type { AIMessage } from "../types";
-import { openai } from "./ai";
-import { zodFunction } from "openai/helpers/zod";
+import { ai } from "./ai";
 
-export const runLLM = async ({
-  messages,
-   tools,
-}: {
-  messages: AIMessage[];
-  tools: any[];
-}) => {
-  const formattedTools = tools.map(zodFunction);
-
-  const response = await openai.chat.completions.create({
+export async function runLLM({ messages }: { messages?: AIMessage[] }) {
+  const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    temperature: 0.1,
-    messages,
-    tools: formattedTools,
-    tool_choice: "auto",
-    parallel_tool_calls: false,
+    contents: messages || [],
+    config: {
+      temperature: 0.2,
+    },
   });
-  return response.choices[0].message;
-};
+  const text =
+    response.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+  return text;
+}

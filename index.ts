@@ -1,6 +1,7 @@
 import "dotenv/config";
-import { runAgent } from "./src/agent";
 import { z } from "zod";
+import { runLLM } from "./src/llm";
+import { getMessages, addMessages } from "./src/memory";
 
 const userMessage = process.argv[2];
 
@@ -9,14 +10,17 @@ if (!userMessage) {
   process.exit(1);
 }
 
-const weatherTool = {
-  name: "get_weather",
-  description: "use this to get the weather information",
-  parameters: z.object({
-    reasoning: z.string().describe("why did you pick this tool?"),
-  }),
-};
+// save the last/current user message before calling LLM on it
+await addMessages([{ role: "user", parts: [{ text: userMessage }] }]);
 
-const response = await runAgent({ userMessage, tools: [weatherTool] });
+// retrieve all messages (including the one just added) and pass them to the LLM
+const savedMessages = await getMessages();
 
-console.log(response);
+const response = await runLLM({
+  messages: savedMessages,
+});
+
+// save the LLM reposnse
+await addMessages([{ role: "model", parts: [{ text: response }] }]);
+
+console.log("AI Response:", response);
