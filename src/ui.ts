@@ -18,40 +18,47 @@ export const showLoader = (text: string) => {
 export const logMessage = (message: AIMessage) => {
   const roleColors = {
     user: '\x1b[36m', // cyan
-    assistant: '\x1b[32m', // green
+    model: '\x1b[32m', // green
   }
 
   const reset = '\x1b[0m'
   const role = message.role
   const color = roleColors[role as keyof typeof roleColors] || '\x1b[37m' // default to white
 
-  // Don't log tool messages
-  if (role === 'tool') {
+  // Don't log function messages
+  if (role === 'function') {
     return
   }
 
-  // Log user messages (only have content)
+  // Log user messages
   if (role === 'user') {
     console.log(`\n${color}[USER]${reset}`)
-    console.log(`${message.content}\n`)
+    const textPart = message.parts.find(p => 'text' in p) as { text?: string } | undefined
+    const text = textPart?.text || ''
+    console.log(`${text}\n`)
     return
   }
 
-  // Log assistant messages
-  if (role === 'assistant') {
-    // If has tool_calls, log function name
-    if ('tool_calls' in message && message.tool_calls) {
-      message.tool_calls.forEach((tool) => {
-        console.log(`\n${color}[ASSISTANT]${reset}`)
-        console.log(`${tool.function.name}\n`)
+  // Log model messages
+  if (role === 'model') {
+    console.log(`\n${color}[MODEL]${reset}`)
+
+    // Check for function calls
+    const functionCalls = message.parts.filter(p => 'functionCall' in p)
+    if (functionCalls.length > 0) {
+      functionCalls.forEach((part) => {
+        if ('functionCall' in part && part.functionCall) {
+          console.log(`Function: ${part.functionCall.name}\n`)
+        }
       })
       return
     }
 
-    // If has content, log it
-    if (message.content) {
-      console.log(`\n${color}[ASSISTANT]${reset}`)
-      console.log(`${message.content}\n`)
+    // Otherwise log text content
+    const textPart = message.parts.find(p => 'text' in p) as { text?: string } | undefined
+    const text = textPart?.text || ''
+    if (text) {
+      console.log(`${text}\n`)
     }
   }
 }

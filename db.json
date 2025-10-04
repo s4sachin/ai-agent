@@ -4,61 +4,141 @@
       "role": "user",
       "parts": [
         {
-          "text": "what is my name?"
+          "text": "Hi, I am Sachin"
         }
       ],
-      "id": "f6e23cbf-593f-4f21-a4a3-e22fd62c235d",
-      "createdAt": "2025-10-04T03:41:08.915Z"
+      "id": "01eaf7a9-99ec-4175-aefb-e631c91d7b61",
+      "createdAt": "2025-10-04T08:09:30.088Z"
     },
     {
       "role": "model",
       "parts": [
         {
-          "text": "As an AI, I don't have access to any personal information about you, so I don't know your name.\n\nYou would need to tell me if you'd like me to know it for our conversation!"
+          "text": "Hello Sachin, how can I help you today?\n"
         }
       ],
-      "id": "7413bb39-a1b6-46d1-85fd-13f99cbd7187",
-      "createdAt": "2025-10-04T03:41:12.023Z"
+      "id": "3bce29b9-eb0d-4d8d-8935-b554f73117f8",
+      "createdAt": "2025-10-04T08:09:31.191Z"
     },
     {
       "role": "user",
       "parts": [
         {
-          "text": "my name is Sachin"
+          "text": "What's the weather in Mumbai?"
         }
       ],
-      "id": "73de277f-5628-4b3e-a80c-3ee6a8ae952b",
-      "createdAt": "2025-10-04T03:41:47.106Z"
+      "id": "5d566765-bf30-4834-a994-3eabe3a4fac4",
+      "createdAt": "2025-10-04T08:09:43.209Z"
     },
     {
       "role": "model",
       "parts": [
         {
-          "text": "Okay, Sachin! It's nice to meet you.\n\nI'll remember that your name is Sachin for our conversation. How can I help you today, Sachin?"
+          "functionCall": {
+            "name": "get_weather",
+            "args": {
+              "location": "Mumbai, India"
+            }
+          }
         }
       ],
-      "id": "d7b44a83-8b08-44f5-82a7-b0ed1b5ce018",
-      "createdAt": "2025-10-04T03:41:48.485Z"
+      "id": "25368160-9985-44be-b640-7e90fc97cd12",
+      "createdAt": "2025-10-04T08:09:45.642Z"
     },
     {
       "role": "user",
       "parts": [
         {
-          "text": "give me all the info you have about me?"
+          "text": "What's the weather like in Tokyo?"
         }
       ],
-      "id": "2ecb5b12-aeb7-4285-9a86-bbd56a9323cb",
-      "createdAt": "2025-10-04T03:42:19.843Z"
+      "id": "6aaa4cd9-98dc-4c16-8604-a6ff4ee5e4fe",
+      "createdAt": "2025-10-04T08:52:16.731Z"
     },
     {
       "role": "model",
       "parts": [
         {
-          "text": "Okay, Sachin.\n\nThe only piece of information I have about you is what you've told me in this current conversation: **that your name is Sachin.**\n\nAs an AI, I don't have access to any personal data about you, your past interactions, or any external information. My memory is limited to our current conversation, and I don't store details about you across different sessions."
+          "functionCall": {
+            "name": "get_weather",
+            "args": {
+              "location": "Tokyo, Japan"
+            }
+          }
         }
       ],
-      "id": "c93997f2-756e-43f0-b0f5-e75c8767ccec",
-      "createdAt": "2025-10-04T03:42:24.556Z"
+      "id": "8c2e4d9d-1188-41b0-a760-f2249bd52529",
+      "createdAt": "2025-10-04T08:52:18.293Z"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "What's the weather like in London?"
+        }
+      ],
+      "id": "1307a56d-2c71-45f0-8231-050c542d6366",
+      "createdAt": "2025-10-04T08:52:42.903Z"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "functionCall": {
+            "name": "get_weather",
+            "args": {
+              "location": "London, UK"
+            }
+          }
+        }
+      ],
+      "id": "3f630e19-6109-4947-8c8a-b0c4b9617275",
+      "createdAt": "2025-10-04T08:52:44.217Z"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "What's the weather like in Japan?"
+        }
+      ],
+      "id": "2b0222c8-e5cb-49db-9b3a-9692d91924cd",
+      "createdAt": "2025-10-04T08:56:34.130Z"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "text": "I cannot provide weather information for an entire country. Please specify a city in Japan for which you'd like the weather."
+        }
+      ],
+      "id": "fb1cb093-724e-4bab-8f06-50b813ed373d",
+      "createdAt": "2025-10-04T08:56:36.211Z"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "What's the weather like in Tokyo, Japan?"
+        }
+      ],
+      "id": "a3a01e4c-2de5-4106-949d-fb494c38e3fa",
+      "createdAt": "2025-10-04T08:57:05.929Z"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "functionCall": {
+            "name": "get_weather",
+            "args": {
+              "location": "Tokyo, Japan"
+            }
+          }
+        }
+      ],
+      "id": "6c5b7d6d-f3ab-478c-a7bc-d0e51ddada17",
+      "createdAt": "2025-10-04T08:57:07.965Z"
     }
   ]
 }

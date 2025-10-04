@@ -15,7 +15,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@google/genai": "^1.22.0",
     "@google/generative-ai": "^0.24.1",
     "dotenv": "^16.4.5",
     "gemini-ai": "^2.2.1",
