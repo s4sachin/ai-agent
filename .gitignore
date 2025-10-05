@@ -5,7 +5,8 @@ node_modules
 .env
 
 # Local database
-db.json
+db.*
+./db.json
 
 # Logs
 logs
