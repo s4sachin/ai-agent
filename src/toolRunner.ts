@@ -1,4 +1,8 @@
-// Google Generative AI function call interface
+import { generateImage, generateImageToolDefinition } from './tools/generateImage';
+import { dadJoke, dadJokeToolDefinition } from './tools/dadJoke';
+import { redditPost, redditToolDefinition } from './tools/reddit';
+
+
 interface GeminiFunctionCall {
   name: string;
   args: Record<string, any>;
@@ -25,9 +29,26 @@ export const runTool = async (
   };
 
   switch (functionCall.name) {
-    case "get_weather":
-      return getWeather(inputArgs);
+    case generateImageToolDefinition.name:
+      return await generateImage({
+        userMessage,
+        toolArgs: {
+          prompt: functionCall.args?.prompt || "",
+        },
+      });
+      
+    case dadJokeToolDefinition.name:
+      return await dadJoke(inputArgs);
+
+    case redditToolDefinition.name:
+      return await redditPost({
+        userMessage,
+        toolArgs: {
+          subreddit: functionCall.args?.subreddit || "",
+        },
+      });
+      
     default:
-      throw new Error(`Unknown tool: ${functionCall.name}`);
+      return { error: `Unknown tool: ${functionCall.name}` };
   }
 };
