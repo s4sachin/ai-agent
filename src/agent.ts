@@ -32,6 +32,12 @@ export const runAgent = async ({
     else if (response.type === "function_call" && response.functionCall) {
       const toolCall = response.functionCall;
       
+      // Validate function call has required properties
+      if (!toolCall.name || !toolCall.args) {
+        loader.stop();
+        return "Invalid function call received from AI.";
+      }
+      
       // 1. Save the function call first
       await addMessages([
         {
@@ -51,14 +57,19 @@ export const runAgent = async ({
       loader.update(`Executing tool: ${toolCall.name}`);
       
       try {
-        const toolResponse = await runTool(toolCall, userMessage);
+        const toolResponse = await runTool(toolCall as { name: string; args: Record<string, any> }, userMessage);
         
         // 3. Save the function response
         await addMessages([
           {
             role: "function",
             parts: [
-              { functionResponse: { name: toolCall.name, response: toolResponse } },
+              { 
+                functionResponse: { 
+                  name: toolCall.name, 
+                  response: typeof toolResponse === 'object' ? toolResponse : { result: toolResponse }
+                } 
+              },
             ],
           },
         ]);
