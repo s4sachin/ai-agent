@@ -1,4 +1,4 @@
-import type { Content } from "@google/generative-ai";
+import type { Content } from "@google/genai";
 
 // Google Generative AI types
 export type AIMessage = Content;
