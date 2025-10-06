@@ -50,7 +50,7 @@ function zodSchemaToJsonSchema(schema: z.ZodSchema): any {
 }
 
 /**
- * Format tools for Google Generative AI
+ * Format tools for Google Gen AI SDK (@google/genai)
  */
 export function formatToolsForGemini(tools: any[]) {
   const functionDeclarations = tools.map(tool => {
@@ -61,13 +61,17 @@ export function formatToolsForGemini(tools: any[]) {
         return {
           name: tool.name,
           description: tool.description,
-          parameters: zodSchemaToJsonSchema(tool.parameters)
+          parametersJsonSchema: zodSchemaToJsonSchema(tool.parameters)
         };
       }
-      // Already in correct format
-      return tool;
+      // Already in correct format (convert parameters to parametersJsonSchema)
+      return {
+        name: tool.name,
+        description: tool.description,
+        parametersJsonSchema: tool.parameters
+      };
     }
-    
+
     // Handle other formats or throw error
     throw new Error(`Invalid tool format: ${JSON.stringify(tool)}`);
   });
