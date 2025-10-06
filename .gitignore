@@ -8,6 +8,9 @@ node_modules
 db.*
 ./db.json
 
+# Generated images
+generated_images/
+
 # Logs
 logs
 *.log
